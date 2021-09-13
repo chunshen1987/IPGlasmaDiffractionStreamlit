@@ -66,9 +66,13 @@ def main(emu):
 
     # make model prediction using the emulator
     pred, predCov = emu.predict(params, return_cov=True)
+    pred = np.exp(pred[0, :])
+    predErr = np.sqrt(np.diagonal(predCov[0, :, :]))*pred
 
-    predIncoh = np.exp(pred[0, 0:len(t_data_incoherent)])
-    predCoh = np.exp(pred[0, len(t_data_incoherent):])
+    predIncoh = pred[0:len(t_data_incoherent)]
+    predIncohErr = predErr[0:len(t_data_incoherent)]
+    predCoh = pred[len(t_data_incoherent):]
+    predCohErr = predErr[len(t_data_incoherent):]
 
     # make plot
     fig = plt.figure()
@@ -78,8 +82,10 @@ def main(emu):
     plt.errorbar(t_data_incoherent, dsigmadt_data_incoherent,
                  dsigmadt_data_incoherent_error, color='k', marker='s',
                  linestyle='')
-    plt.plot(t_data_incoherent, predIncoh, '-')
-    plt.plot(t_data_coherent, predCoh, '--')
+    plt.fill_between(t_data_incoherent, predIncoh - predIncohErr,
+                     predIncoh + predIncohErr, alpha=0.5)
+    plt.fill_between(t_data_coherent, predCoh - predCohErr,
+                     predCoh + predCohErr, alpha=0.5)
     plt.yscale('log')
     plt.xlim([0, 2.5])
     plt.ylim([1, 5e2])
