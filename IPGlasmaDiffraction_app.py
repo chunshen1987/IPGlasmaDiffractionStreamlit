@@ -17,7 +17,7 @@ def parse_model_parameter_file(parfile):
             par = par.split(":")
             key = par[0]
             val = [ival.strip() for ival in par[1].split(",")]
-            for i in range(1, 3):
+            for i in range(1, 4):
                 val[i] = float(val[i])
             pardict.update({key: val})
     return pardict
@@ -58,7 +58,7 @@ def main(emu):
         parMax = paraDict[ikey][2]
         parVal = st.sidebar.slider(label=paraDict[ikey][0],
                                    min_value=parMin, max_value=parMax,
-                                   value=(parMax + parMin)/2.,
+                                   value=paraDict[ikey][3],
                                    step=(parMax - parMin)/1000.,
                                    format='%f')
         params.append(parVal)
