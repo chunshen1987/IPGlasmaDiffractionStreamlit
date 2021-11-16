@@ -5,6 +5,6 @@ m: m [GeV], 0.05, 2, 0.6786                            # the infrared cut-off ma
 BG: BG [GeV], 1, 10, 4.2004                            # Gaussian width for quark positions (GeV^-2)
 BGq: BGq [GeV], 0.1, 3, 0.5543                         # Gaussian width for quark density profile (GeV^-2)
 smearingWidth: smearQsWidth, 0, 1.5, 0.8073      # the smearing width for Qs (GeV^-1)
-useConstituentQuarkProton: Nq, 1, 10, 7          # number of quarks
+useConstituentQuarkProton: Nq, 1, 20, 7          # number of quarks
 QsmuRatio: QsmuRatio, 0.2, 1.5, 0.5272           # the ratio between color charge density and saturation scale
 dqMin: dqMin [fm], 0, 0.5, 0.2662                     # the minimum distance between partons (fm)
