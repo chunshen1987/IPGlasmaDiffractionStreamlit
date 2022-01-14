@@ -102,7 +102,7 @@ def main(emu):
     plt.ylim([1, 5e2])
     plt.xlabel(r"$t$ (GeV$^2$)")
     plt.ylabel(r"$d\sigma/dt$ (nb/GeV$^{2}$)")
-    plt.text(1.8, 80, r"$W = 75$ GeV")
+    plt.text(1.8, 80, r"$\langle W \rangle = 75$ GeV")
 
     st.pyplot(fig)
 
