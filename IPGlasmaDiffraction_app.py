@@ -48,6 +48,16 @@ def main(emu):
     # The title of the page
     st.title('IPGlasma + Diffraction')
 
+    st.write("This is an interactive web page that emulate "
+             + "the J/$$\psi$$ diffractive observables from the IPGlasma model.")
+    st.write("This work is based on arXiv:xxxx.xxxxx")
+    st.write("One can adjust the model parameters on the left sidebar.")
+    st.write("The colored bands in the figure show the emulator estimations "
+             + "and their uncertainties. "
+             + "The compared experimental data are from the H1 Collaboration, "
+             + "[Eur. Phys. J. C 73 (2013) No. 6, 2466]"
+             + "(https://link.springer.com/article/10.1140%2Fepjc%2Fs10052-013-2466-y)")
+
     # Define model parameters in the sidebar
     modelParamFile = "IPGlasmaDiffraction.txt"
     paraDict = parse_model_parameter_file(modelParamFile)
@@ -78,19 +88,21 @@ def main(emu):
     fig = plt.figure()
     plt.errorbar(t_data_coherent, dsigmadt_data_coherent,
                  dsigmadt_data_coherent_error, color='k', marker='o',
-                 linestyle='')
+                 linestyle='', label="Coherent, H1")
     plt.errorbar(t_data_incoherent, dsigmadt_data_incoherent,
                  dsigmadt_data_incoherent_error, color='k', marker='s',
-                 linestyle='')
+                 linestyle='', label="Incoherent, H1")
     plt.fill_between(t_data_incoherent, predIncoh - predIncohErr,
                      predIncoh + predIncohErr, alpha=0.5)
     plt.fill_between(t_data_coherent, predCoh - predCohErr,
                      predCoh + predCohErr, alpha=0.5)
+    plt.legend()
     plt.yscale('log')
     plt.xlim([0, 2.5])
     plt.ylim([1, 5e2])
     plt.xlabel(r"$t$ (GeV$^2$)")
     plt.ylabel(r"$d\sigma/dt$")
+    plt.text(1.8, 80, r"$W = 75$ GeV")
 
     st.pyplot(fig)
 
