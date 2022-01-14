@@ -48,8 +48,9 @@ def main(emu):
     # The title of the page
     st.title('IPGlasma + Diffraction')
 
-    st.write("This is an interactive web page that emulate "
-             + "the J/$$\psi$$ diffractive observables from the IPGlasma model.")
+    st.write("This is an interactive web page that emulates "
+             + "the J/$$\psi$$ photonproduction cross sections from "
+             + "the IPGlasma model.")
     st.write("This work is based on arXiv:xxxx.xxxxx")
     st.write("One can adjust the model parameters on the left sidebar.")
     st.write("The colored bands in the figure show the emulator estimations "
