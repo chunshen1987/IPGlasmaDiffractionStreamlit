@@ -53,7 +53,7 @@ def main(emu):
     st.write("This work is based on arXiv:xxxx.xxxxx")
     st.write("One can adjust the model parameters on the left sidebar.")
     st.write("The colored bands in the figure show the emulator estimations "
-             + "and their uncertainties. "
+             + "with their uncertainties. "
              + "The compared experimental data are from the H1 Collaboration, "
              + "[Eur. Phys. J. C 73 (2013) No. 6, 2466]"
              + "(https://link.springer.com/article/10.1140%2Fepjc%2Fs10052-013-2466-y)")
