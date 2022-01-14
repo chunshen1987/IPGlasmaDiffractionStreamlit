@@ -49,7 +49,7 @@ def main(emu):
     st.title('IPGlasma + Diffraction')
 
     st.write("This is an interactive web page that emulates "
-             + "the J/$$\psi$$ photonproduction cross sections from "
+             + "the J/$$\psi$$ photoproduction cross sections from "
              + "the IPGlasma model.")
     st.write("This work is based on arXiv:xxxx.xxxxx")
     st.write("One can adjust the model parameters on the left sidebar.")
