@@ -1,7 +1,9 @@
 import streamlit as st
 import joblib
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+
 
 from os import path
 import sys
@@ -107,6 +109,10 @@ def main(emu):
     plt.text(1.8, 80, r"$\langle W \rangle = 75$ GeV")
 
     st.pyplot(fig)
+
+    st.header("Posterior Samples:")
+    df = pd.read_csv("posterior.csv")
+    st.dataframe(df)
 
 
 if __name__ == '__main__':
