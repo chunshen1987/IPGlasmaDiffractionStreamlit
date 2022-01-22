@@ -2,4 +2,5 @@ numpy
 joblib
 matplotlib
 sklearn
+streamlit==0.73.1
 streamlit-analytics
