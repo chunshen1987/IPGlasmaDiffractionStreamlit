@@ -30,6 +30,11 @@ def loadEmulator():
     emu = joblib.load("Emulator.joblib")
     return emu
 
+@st.cache
+def loadCSVFile():
+    df = pd.read_csv("posterior.csv")
+    return df
+
 
 def main(emu):
     # define experimental data
@@ -113,7 +118,7 @@ def main(emu):
     st.header("Posterior Samples:")
     with open('posterior.csv') as f:
         st.download_button('Download CSV', f)
-    df = pd.read_csv("posterior.csv")
+    df = loadCSVFile()
     st.dataframe(df)
 
 
