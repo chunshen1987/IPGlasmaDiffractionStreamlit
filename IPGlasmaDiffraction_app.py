@@ -111,6 +111,8 @@ def main(emu):
     st.pyplot(fig)
 
     st.header("Posterior Samples:")
+    with open('posterior.csv') as f:
+        st.download_button('Download CSV', f)
     df = pd.read_csv("posterior.csv")
     st.dataframe(df)
 
