@@ -2,3 +2,4 @@ numpy
 joblib
 matplotlib
 sklearn
+streamlit-analytics
