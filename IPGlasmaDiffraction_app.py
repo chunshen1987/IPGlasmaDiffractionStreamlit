@@ -33,8 +33,9 @@ def loadEmulator():
 
 @st.cache
 def loadCSVFile():
-    df = pd.read_csv("posterior.csv")
-    return df
+    df1 = pd.read_csv("posterior.csv")
+    df2 = pd.read_csv("posterior_Nq3.csv")
+    return df1, df2
 
 
 def main(emu):
@@ -117,11 +118,14 @@ def main(emu):
 
         st.pyplot(fig)
 
+        df1, df2 = loadCSVFile()
         st.header("Posterior Samples:")
         with open('posterior.csv') as f:
-            st.download_button('Download CSV', f)
-        df = loadCSVFile()
-        st.dataframe(df)
+            st.download_button('Download CSV (varaible Nq)', f)
+        st.dataframe(df1)
+        with open('posterior_Nq3.csv') as f:
+            st.download_button('Download CSV (fixed Nq = 3)', f)
+        st.dataframe(df2)
 
 
 if __name__ == '__main__':
