@@ -121,7 +121,7 @@ def main(emu):
         df1, df2 = loadCSVFile()
         st.header("Posterior Samples:")
         with open('posterior.csv') as f:
-            st.download_button('Download CSV (varaible Nq)', f)
+            st.download_button('Download CSV (variable Nq)', f)
         st.dataframe(df1)
         with open('posterior_Nq3.csv') as f:
             st.download_button('Download CSV (fixed Nq = 3)', f)
