@@ -62,7 +62,8 @@ def main(emu):
                  + "the J/$$\psi$$ photoproduction cross sections in "
                  + "deep inelastic scatterings of protons "
                  + "using the IPGlasma model.")
-        st.write("This work is based on arXiv:xxxx.xxxxx")
+        st.write("This work is based on [arXiv:2202.01998 [hep-ph]]"
+                 + "(https://arxiv.org/abs/2202.01998)")
         st.write("One can adjust the model parameters on the left sidebar.")
         st.write("The colored bands in the figure show the emulator estimations "
                  + "with their uncertainties. "
