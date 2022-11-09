@@ -3,7 +3,6 @@ import joblib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import streamlit_analytics
 
 
 from os import path
@@ -54,79 +53,78 @@ def main(emu):
     dsigmadt_data_coherent_error = np.array(
             [18.4, 12.9, 9.3, 7.0, 5.1, 3.7, 2.74, 1.75])
 
-    with streamlit_analytics.track():
-        # The title of the page
-        st.title('IPGlasma + Diffraction')
+    # The title of the page
+    st.title('IPGlasma + Diffraction')
 
-        st.write("This is an interactive web page that emulates "
-                 + "the J/$$\psi$$ photoproduction cross sections in "
-                 + "deep inelastic scatterings of protons "
-                 + "using the IPGlasma model.")
-        st.write("This work is based on [arXiv:2202.01998 [hep-ph]]"
-                 + "(https://arxiv.org/abs/2202.01998)")
-        st.write("One can adjust the model parameters on the left sidebar.")
-        st.write("The colored bands in the figure show the emulator estimations "
-                 + "with their uncertainties. "
-                 + "The compared experimental data are from the H1 Collaboration, "
-                 + "[Eur. Phys. J. C 73 (2013) No. 6, 2466]"
-                 + "(https://link.springer.com/article/10.1140%2Fepjc%2Fs10052-013-2466-y)")
+    st.write("This is an interactive web page that emulates "
+             + "the J/$$\psi$$ photoproduction cross sections in "
+             + "deep inelastic scatterings of protons "
+             + "using the IPGlasma model.")
+    st.write("This work is based on [arXiv:2202.01998 [hep-ph]]"
+             + "(https://arxiv.org/abs/2202.01998)")
+    st.write("One can adjust the model parameters on the left sidebar.")
+    st.write("The colored bands in the figure show the emulator estimations "
+             + "with their uncertainties. "
+             + "The compared experimental data are from the H1 Collaboration, "
+             + "[Eur. Phys. J. C 73 (2013) No. 6, 2466]"
+             + "(https://link.springer.com/article/10.1140%2Fepjc%2Fs10052-013-2466-y)")
 
-        # Define model parameters in the sidebar
-        modelParamFile = "IPGlasmaDiffraction.txt"
-        paraDict = parse_model_parameter_file(modelParamFile)
-        st.sidebar.header('Model Parameters:')
-        params = []     # record the model parameter values
-        for ikey in paraDict.keys():
-            parMin = paraDict[ikey][1]
-            parMax = paraDict[ikey][2]
-            parVal = st.sidebar.slider(label=paraDict[ikey][0],
-                                       min_value=parMin, max_value=parMax,
-                                       value=paraDict[ikey][3],
-                                       step=(parMax - parMin)/1000.,
-                                       format='%f')
-            params.append(parVal)
-        params = np.array([params,])
+    # Define model parameters in the sidebar
+    modelParamFile = "IPGlasmaDiffraction.txt"
+    paraDict = parse_model_parameter_file(modelParamFile)
+    st.sidebar.header('Model Parameters:')
+    params = []     # record the model parameter values
+    for ikey in paraDict.keys():
+        parMin = paraDict[ikey][1]
+        parMax = paraDict[ikey][2]
+        parVal = st.sidebar.slider(label=paraDict[ikey][0],
+                                   min_value=parMin, max_value=parMax,
+                                   value=paraDict[ikey][3],
+                                   step=(parMax - parMin)/1000.,
+                                   format='%f')
+        params.append(parVal)
+    params = np.array([params,])
 
-        # make model prediction using the emulator
-        pred, predCov = emu.predict(params, return_cov=True)
-        pred = np.exp(pred[0, :])
-        predErr = np.sqrt(np.diagonal(predCov[0, :, :]))*pred
+    # make model prediction using the emulator
+    pred, predCov = emu.predict(params, return_cov=True)
+    pred = np.exp(pred[0, :])
+    predErr = np.sqrt(np.diagonal(predCov[0, :, :]))*pred
 
-        predIncoh = pred[0:len(t_data_incoherent)]
-        predIncohErr = predErr[0:len(t_data_incoherent)]
-        predCoh = pred[len(t_data_incoherent):]
-        predCohErr = predErr[len(t_data_incoherent):]
+    predIncoh = pred[0:len(t_data_incoherent)]
+    predIncohErr = predErr[0:len(t_data_incoherent)]
+    predCoh = pred[len(t_data_incoherent):]
+    predCohErr = predErr[len(t_data_incoherent):]
 
-        # make plot
-        fig = plt.figure()
-        plt.errorbar(t_data_coherent, dsigmadt_data_coherent,
-                     dsigmadt_data_coherent_error, color='k', marker='o',
-                     linestyle='', label="Coherent, H1")
-        plt.errorbar(t_data_incoherent, dsigmadt_data_incoherent,
-                     dsigmadt_data_incoherent_error, color='k', marker='s',
-                     linestyle='', label="Incoherent, H1")
-        plt.fill_between(t_data_incoherent, predIncoh - predIncohErr,
-                         predIncoh + predIncohErr, alpha=0.5)
-        plt.fill_between(t_data_coherent, predCoh - predCohErr,
-                         predCoh + predCohErr, alpha=0.5)
-        plt.legend()
-        plt.yscale('log')
-        plt.xlim([0, 2.5])
-        plt.ylim([1, 5e2])
-        plt.xlabel(r"$t$ (GeV$^2$)")
-        plt.ylabel(r"$d\sigma/dt$ (nb/GeV$^{2}$)")
-        plt.text(1.8, 80, r"$\langle W \rangle = 75$ GeV")
+    # make plot
+    fig = plt.figure()
+    plt.errorbar(t_data_coherent, dsigmadt_data_coherent,
+                 dsigmadt_data_coherent_error, color='k', marker='o',
+                 linestyle='', label="Coherent, H1")
+    plt.errorbar(t_data_incoherent, dsigmadt_data_incoherent,
+                 dsigmadt_data_incoherent_error, color='k', marker='s',
+                 linestyle='', label="Incoherent, H1")
+    plt.fill_between(t_data_incoherent, predIncoh - predIncohErr,
+                     predIncoh + predIncohErr, alpha=0.5)
+    plt.fill_between(t_data_coherent, predCoh - predCohErr,
+                     predCoh + predCohErr, alpha=0.5)
+    plt.legend()
+    plt.yscale('log')
+    plt.xlim([0, 2.5])
+    plt.ylim([1, 5e2])
+    plt.xlabel(r"$t$ (GeV$^2$)")
+    plt.ylabel(r"$d\sigma/dt$ (nb/GeV$^{2}$)")
+    plt.text(1.8, 80, r"$\langle W \rangle = 75$ GeV")
 
-        st.pyplot(fig)
+    st.pyplot(fig)
 
-        df1, df2 = loadCSVFile()
-        st.header("Posterior Samples:")
-        with open('posterior.csv') as f:
-            st.download_button('Download CSV (variable Nq)', f)
-        st.dataframe(df1)
-        with open('posterior_Nq3.csv') as f:
-            st.download_button('Download CSV (fixed Nq = 3)', f)
-        st.dataframe(df2)
+    df1, df2 = loadCSVFile()
+    st.header("Posterior Samples:")
+    with open('posterior.csv') as f:
+        st.download_button('Download CSV (variable Nq)', f)
+    st.dataframe(df1)
+    with open('posterior_Nq3.csv') as f:
+        st.download_button('Download CSV (fixed Nq = 3)', f)
+    st.dataframe(df2)
 
 
 if __name__ == '__main__':
