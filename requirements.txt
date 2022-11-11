@@ -1,6 +1,5 @@
 numpy
 joblib
 matplotlib
-sklearn
-streamlit==1.0.0
-streamlit-analytics
+scikit-learn
+streamlit

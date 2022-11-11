@@ -9,5 +9,5 @@ The required python libraries are listed in the `requirements.txt` file.
 To run the app locally,
 
 ```
-  streamlit run IPGlasmaDiffusion_app.py
+  streamlit run IPGlasmaDiffraction_app.py
 ```
