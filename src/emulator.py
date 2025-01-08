@@ -223,8 +223,8 @@ class Emulator:
             ], axis=1)
 
             # Add extra uncertainty to predictive variance.
-            extra_std = np.array(extra_std, copy=False).reshape(-1, 1)
-            gp_var += extra_std**2
+            #extra_std = np.array(extra_std, copy=False).reshape(-1, 1)
+            #gp_var += extra_std**2
 
             # Compute the covariance at each sample point using the
             # pre-calculated arrays (see constructor).
