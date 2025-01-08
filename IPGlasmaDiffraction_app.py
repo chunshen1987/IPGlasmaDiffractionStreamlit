@@ -25,12 +25,12 @@ def parse_model_parameter_file(parfile):
     return pardict
 
 
-@st.cache
+@st.cache_resource
 def loadEmulator():
     emu = joblib.load("Emulator.joblib")
     return emu
 
-@st.cache
+@st.cache_resource
 def loadCSVFile():
     df1 = pd.read_csv("posterior.csv")
     df2 = pd.read_csv("posterior_Nq3.csv")
